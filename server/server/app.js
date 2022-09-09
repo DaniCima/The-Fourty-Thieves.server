@@ -17,7 +17,22 @@ require("./config")(app);
 // 👇 Start handling routes here
 // Contrary to the views version, all routes are controlled from the routes/index.js
 const allRoutes = require("./routes/index.routes");
-app.use("/api", allRoutes);
+app.use("/", allRoutes);
+// // route for authentication
+const auth = require("./routes/auth.routes");
+app.use("/auth", auth);
+// // route for art-view
+// const artwork = require("./routes/artwork.routes");
+// app.use("/artwork", artwork);
+// // route for profile
+// const profile = require("./routes/profile.routes");
+// app.use("/profile", profile);
+// // route for gallery
+// const gallery = require("./routes/gallery.routes");
+// app.use("/gallery", gallery);
+// // route for comments
+// const chat = require("./routes/gallery.routes");
+// app.use("/chat", chat);
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);

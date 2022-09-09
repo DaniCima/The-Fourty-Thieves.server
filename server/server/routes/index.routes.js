@@ -1,10 +1,6 @@
 const router = require("express").Router();
+const { renderIndexView } = require("../controllers/home.controllers");
 
-router.get("/", (req, res, next) => {
-  res.json("All good in here");
-});
-
-// You put the next routes here 👇
-// example: router.use("/auth", authRoutes)
+router.get("/", renderIndexView);
 
 module.exports = router;
