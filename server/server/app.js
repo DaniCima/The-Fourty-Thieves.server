@@ -19,8 +19,8 @@ require("./config")(app);
 const allRoutes = require("./routes/index.routes");
 app.use("/", allRoutes);
 // // route for authentication
-const authRouter = require("./routes/auth.routes");
-app.use("/auth", authRouter);
+const auth = require("./routes/auth.routes");
+app.use("/auth", auth);
 // // route for art-view
 // const artwork = require("./routes/artwork.routes");
 // app.use("/artwork", artwork);
