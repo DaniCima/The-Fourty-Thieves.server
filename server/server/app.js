@@ -14,6 +14,8 @@ const app = express();
 // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
 require("./config")(app);
 
+const { isAuthenticated } = require("./middleware/jwt.middleware");
+
 // 👇 Start handling routes here
 // Contrary to the views version, all routes are controlled from the routes/index.js
 const allRoutes = require("./routes/index.routes");
@@ -26,7 +28,7 @@ app.use("/auth", auth);
 // app.use("/artwork", artwork);
 // // route for profile
 // const profile = require("./routes/profile.routes");
-// app.use("/profile", profile);
+// app.use("/profile", isAuthenticated, profile);
 // // route for gallery
 // const gallery = require("./routes/gallery.routes");
 // app.use("/gallery", gallery);
