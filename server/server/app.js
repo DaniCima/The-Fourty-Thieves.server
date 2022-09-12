@@ -23,15 +23,12 @@ app.use("/", allRoutes);
 // // route for authentication
 const auth = require("./routes/auth.routes");
 app.use("/auth", auth);
-// // route for art-view
-// const artwork = require("./routes/artwork.routes");
-// app.use("/artwork", artwork);
 // // route for profile
 const profile = require("./routes/profile.routes");
 app.use("/profile", isAuthenticated, profile);
 // // route for gallery
-// const gallery = require("./routes/gallery.routes");
-// app.use("/gallery", gallery);
+const gallery = require("./routes/gallery.routes");
+app.use("/gallery", gallery);
 // // route for comments
 // const chat = require("./routes/gallery.routes");
 // app.use("/chat", chat);

@@ -114,14 +114,17 @@ GET /gallery/:artwork
 
 Links
 
-Trello/Kanban
-Link to your trello board or picture of your physical board
+Trello
+https://trello.com/b/teNajOJm/40-thieves
 
 Git
 
-Client repository Link Server repository Link
+Client: https://github.com/DaniCima/The-Fourty-Thieves.client
+Server: https://github.com/DaniCima/The-Fourty-Thieves.server
 
-Deploy Link
+Deploy
+
+Link
 
 Slides
 

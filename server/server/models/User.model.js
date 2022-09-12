@@ -21,12 +21,12 @@ const userSchema = new Schema({
     default:
       "https://www.designboom.com/art/lets-get-digital-in-palazzo-strozzi-05-06-2022/",
   },
-  // artist: { type: Boolean, required: true },
-  // artwork: [{ type: Schema.Types.ObjectId, ref: "Artwork" }],
-  // discipline: { type: String },
-  // autodefinition: { type: String },
-  // collaborators: [{ type: Schema.Types.ObjectId, ref: "User" }],
-  // link: { type: String },
+  artist: { type: Boolean, required: true },
+  artwork: [{ type: Schema.Types.ObjectId, ref: "Artwork" }],
+  discipline: { type: String },
+  autodefinition: { type: String },
+  collaborators: [{ type: Schema.Types.ObjectId, ref: "User" }],
+  link: { type: String },
 });
 
 module.exports = model("User", userSchema);

@@ -6,7 +6,26 @@ const Artwork = require("../models/Artwork.model");
 // const Chat = require("../models/Chat.model");
 
 //  POST /gallery  -  Creates a new Artwork
-router.post("/gallery", (req, res, next) => {
+router.post("/", (req, res, next) => {
+  const { title, description } = req.body;
+  console.log("holle" + title);
+
+  Artwork.create({ title, description })
+    .then((response) => res.json(response))
+    .catch((err) => res.json(err));
+});
+
+//  GET /gallery -  Retrieves randomly all of the Artworks
+router.get("/", (req, res, next) => {
+  Artwork.find()
+    // .populate("chat")
+    .then((allArtworks) => res.json(allArtworks))
+    .catch((err) => res.json(err));
+});
+
+//  POST /gallery/:username  -  Creates a new Artwork
+router.post("/:username", (req, res, next) => {
+  const { username } = req.params;
   const { title, description } = req.body;
 
   Artwork.create({ title, description })
@@ -14,12 +33,61 @@ router.post("/gallery", (req, res, next) => {
     .catch((err) => res.json(err));
 });
 
-//  GET /gallery -  Retrieves all of the Artworks
-router.get("/gallery", (req, res, next) => {
+//  GET /gallery -  Retrieves randomly all of the Artworks
+router.get("/:username", (req, res, next) => {
   Artwork.find()
     // .populate("chat")
     .then((allArtworks) => res.json(allArtworks))
     .catch((err) => res.json(err));
+});
+
+//  GET /gallery/:artworkId -  Retrieves a specific Artwork by id
+router.get("/artwork/:artworkId", (req, res, next) => {
+  const { artworkId } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(artworkId)) {
+    res.status(400).json({ message: "Specified id is not valid" });
+    return;
+  }
+
+  // Each Artwork document has `tasks` array holding `_id`s of Task documents
+  // We use .populate() method to get swap the `_id`s for the actual Task documents
+  Artwork.findById(artworkId)
+    // .populate("chat")
+    .then((Artwork) => res.status(200).json(Artwork))
+    .catch((error) => res.json(error));
+});
+
+// PUT  /api/gallery/:artworkId  -  Updates a specific Artwork by id
+router.put("/artwork/:artworkId", (req, res, next) => {
+  const { artworkId } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(artworkId)) {
+    res.status(400).json({ message: "Specified id is not valid" });
+    return;
+  }
+
+  Artwork.findByIdAndUpdate(artworkId, req.body, { new: true })
+    .then((updatedArtwork) => res.json(updatedArtwork))
+    .catch((error) => res.json(error));
+});
+
+// DELETE  /api/gallery/:artworkId  -  Deletes a specific Artwork by id
+router.delete("/:artworkId", (req, res, next) => {
+  const { artworkId } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(artworkId)) {
+    res.status(400).json({ message: "Specified id is not valid" });
+    return;
+  }
+
+  Artwork.findByIdAndRemove(artworkId)
+    .then(() =>
+      res.json({
+        message: `Artwork with ${artworkId} is removed successfully.`,
+      })
+    )
+    .catch((error) => res.json(error));
 });
 
 module.exports = router;

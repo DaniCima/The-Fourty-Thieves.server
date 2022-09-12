@@ -1,10 +1,9 @@
 const router = require("express").Router();
 const User = require("../models/User.model");
 const mongoose = require("mongoose");
-const { isAuthenticated } = require("../middleware/jwt.middleware");
 
 //  POST /profile  -  Creates a new Artwork
-router.post("/profile/:userId", (req, res, next) => {
+router.post("/profile/:username", (req, res, next) => {
   const { title, description } = req.body;
 
   Artwork.create({ title, description })
@@ -13,7 +12,7 @@ router.post("/profile/:userId", (req, res, next) => {
 });
 
 //  GET /profile -  Retrieves all of the Artworks
-router.get("/profile/:userId", (req, res, next) => {
+router.get("/profile/:username", (req, res, next) => {
   console.log(req.params);
   const { userId } = req.params;
   if (!mongoose.Types.ObjectId.isValid(userId)) {
@@ -53,7 +52,7 @@ router.get("/profile/:userId", (req, res, next) => {
     .catch((err) => console.log(err));
 });
 
-// router.put("/profile/:userId", (req, res) => {
+// router.put("/profile/:username", (req, res) => {
 //   const { userId } = req.params;
 
 //   if (!mongoose.Types.ObjectId.isValid(userId)) {
