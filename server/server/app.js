@@ -26,7 +26,7 @@ app.use("/auth", auth);
 // // route for profile
 const profile = require("./routes/profile.routes");
 app.use("/profile", isAuthenticated, profile);
-// // route for gallery
+// // route for general gallery
 const gallery = require("./routes/gallery.routes");
 app.use("/gallery", gallery);
 // // route for comments
