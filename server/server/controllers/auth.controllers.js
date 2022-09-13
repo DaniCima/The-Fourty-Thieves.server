@@ -9,7 +9,7 @@ exports.renderSignUpView = (req, res, next) => {
     email,
     password,
     username,
-    // profileImage,
+    profileImage,
     artist,
     artwork,
     discipline,
@@ -44,19 +44,50 @@ exports.renderSignUpView = (req, res, next) => {
 
         // Create the new user in the database
         // We return a pending promise, which allows us to chain another `then`
-        return User.create({ email, password: hashedPassword, username }).then(
-          (createdUser) => {
-            // Deconstruct the newly created user object to omit the password
-            // We should never expose passwords publicly
-            const { email, username, _id } = createdUser;
+        return User.create({
+          email,
+          password: hashedPassword,
+          username,
+          profileImage,
+          artist,
+          artwork,
+          discipline,
+          autodefinition,
+          collaborators,
+          link,
+        }).then((createdUser) => {
+          // Deconstruct the newly created user object to omit the password
+          // We should never expose passwords publicly
+          const {
+            email,
+            username,
+            _id,
+            profileImage,
+            artist,
+            artwork,
+            discipline,
+            autodefinition,
+            collaborators,
+            link,
+          } = createdUser;
 
-            // Create a new object that doesn't expose the password
-            const user = { email, username, _id };
+          // Create a new object that doesn't expose the password
+          const user = {
+            email,
+            username,
+            _id,
+            profileImage,
+            artist,
+            artwork,
+            discipline,
+            autodefinition,
+            collaborators,
+            link,
+          };
 
-            // Send a json response containing the user object
-            res.status(201).json({ user: user });
-          }
-        );
+          // Send a json response containing the user object
+          res.status(201).json({ user: user });
+        });
       })
       .catch((err) => {
         console.log(err);
