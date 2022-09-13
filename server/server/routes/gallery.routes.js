@@ -15,7 +15,7 @@ router.post("/", isAuthenticated, renderNewArtForm);
 
 // POST "/gallery/upload" => Route that receives the image, sends it to Cloudinary via the fileUploader and returns the image URL
 router.post("/upload", fileUploader.single("imageUrl"), (req, res, next) => {
-  // console.log("file is: ", req.file)
+  console.log("file uploaded is: ", req.file);
 
   if (!req.file) {
     next(new Error("No file uploaded!"));
@@ -31,7 +31,7 @@ router.post("/upload", fileUploader.single("imageUrl"), (req, res, next) => {
 //  GET /gallery -  Retrieves randomly all of the Artworks
 router.get("/", retrieveRandomArt);
 
-//  POST /gallery/:username  -  Creates a new Artwork
+//  POST /gallery/:username  -  Creates a new Artwork MMMMMMM ???
 router.post("/:username", (req, res, next) => {
   const { username } = req.params;
   const { title, description } = req.body;
