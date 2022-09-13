@@ -3,9 +3,9 @@ const mongoose = require("mongoose");
 const Artwork = require("../models/Artwork.model");
 
 exports.renderNewArtForm = (req, res, next) => {
-  const { title, description, owner } = req.body;
+  const { title, description, owner, imageUrl } = req.body;
 
-  Artwork.create({ title, description, owner })
+  Artwork.create({ title, description, owner, imageUrl })
     .then((response) => res.json(response))
     .catch((err) => res.json(err));
 };

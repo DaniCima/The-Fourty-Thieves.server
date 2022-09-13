@@ -4,6 +4,8 @@ const artworkSchema = new Schema({
   title: { type: String, required: true },
   description: { type: String, required: true },
   owner: [{ type: Schema.Types.ObjectId, ref: "User" }],
+  imageUrl: { type: String },
+  // link:
   // chat: [{ type: Schema.Types.ObjectId, ref: "Chat" }],
 });
 
