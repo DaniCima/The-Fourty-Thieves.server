@@ -1,56 +1,14 @@
 const router = require("express").Router();
-const User = require("../models/User.model");
-const mongoose = require("mongoose");
+const {
+  renderNewArtForm,
+  renderFirstArtworks,
+} = require("../controllers/profile.controllers");
 
 //  POST /profile  -  Creates a new Artwork
-router.post("/profile/:username", (req, res, next) => {
-  const { title, description } = req.body;
-
-  Artwork.create({ title, description })
-    .then((response) => res.json(response))
-    .catch((err) => res.json(err));
-});
+router.post("/profile/:username", renderNewArtForm);
 
 //  GET /profile -  Retrieves all of the Artworks
-router.get("/profile/:username", (req, res, next) => {
-  console.log(req.params);
-  const { userId } = req.params;
-  if (!mongoose.Types.ObjectId.isValid(userId)) {
-    res.status(400).json({ message: "Specified id is not valid" });
-    return;
-  }
-
-  User.findById(id)
-    // .populate("chat")
-    .then(
-      ({
-        _id,
-        username,
-        email,
-        profileImage,
-        artist,
-        artwork,
-        discipline,
-        autodefinition,
-        collaborators,
-        link,
-      }) => {
-        res.status(200).json({
-          _id: _id,
-          username,
-          email,
-          profileImage,
-          artist,
-          artwork,
-          discipline,
-          autodefinition,
-          collaborators,
-          link,
-        });
-      }
-    )
-    .catch((err) => console.log(err));
-});
+router.get("/profile/:username", renderFirstArtworks);
 
 // router.put("/profile/:username", (req, res) => {
 //   const { userId } = req.params;

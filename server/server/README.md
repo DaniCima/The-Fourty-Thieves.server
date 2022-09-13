@@ -75,7 +75,7 @@ password - String // required
 favorites - [ObjectID<Artwork>]
 artirst - Boolean // required
 profileImage - String
-discipline - String
+discipline - String // drop down menu
 autodefinition - String
 collaborators - [ObjectID<User>]
 link - String

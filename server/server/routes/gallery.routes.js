@@ -1,27 +1,19 @@
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
+const User = require("../models/User.model");
+const { retrieveRandomArt } = require("../controllers/gallery.controllers");
+const { renderNewArtForm } = require("../controllers/profile.controllers");
+const { isAuthenticated } = require("../middleware/jwt.middleware");
 
 const Artwork = require("../models/Artwork.model");
 // const Chat = require("../models/Chat.model");
 
 //  POST /gallery  -  Creates a new Artwork
-router.post("/", (req, res, next) => {
-  const { title, description } = req.body;
-  console.log("holle" + title);
-
-  Artwork.create({ title, description })
-    .then((response) => res.json(response))
-    .catch((err) => res.json(err));
-});
+router.post("/", isAuthenticated, renderNewArtForm);
 
 //  GET /gallery -  Retrieves randomly all of the Artworks
-router.get("/", (req, res, next) => {
-  Artwork.find()
-    // .populate("chat")
-    .then((allArtworks) => res.json(allArtworks))
-    .catch((err) => res.json(err));
-});
+router.get("/", retrieveRandomArt);
 
 //  POST /gallery/:username  -  Creates a new Artwork
 router.post("/:username", (req, res, next) => {
@@ -33,11 +25,19 @@ router.post("/:username", (req, res, next) => {
     .catch((err) => res.json(err));
 });
 
-//  GET /gallery -  Retrieves randomly all of the Artworks
-router.get("/:username", (req, res, next) => {
-  Artwork.find()
+//  GET /gallery/:username -  Retrieves randomly all of the Artworks
+router.get("/:username", async (req, res, next) => {
+  // use username to find matching user in DB
+  const user = await User.findOne({ username: req.params.username });
+  console.log(user._id.toString());
+  // get Id form that user ans pass this Id
+  Artwork.find({ owner: { $all: [user._id.toString()] } })
     // .populate("chat")
-    .then((allArtworks) => res.json(allArtworks))
+    .then((allArtworks) => {
+      console.log(allArtworks);
+      res.json(allArtworks);
+    })
+
     .catch((err) => res.json(err));
 });
 
@@ -58,7 +58,7 @@ router.get("/artwork/:artworkId", (req, res, next) => {
     .catch((error) => res.json(error));
 });
 
-// PUT  /api/gallery/:artworkId  -  Updates a specific Artwork by id
+// PUT  /gallery/:artworkId  -  Updates a specific Artwork by id
 router.put("/artwork/:artworkId", (req, res, next) => {
   const { artworkId } = req.params;
 
