@@ -42,7 +42,23 @@ router.post("/:username", (req, res, next) => {
 });
 
 //  GET /gallery/:username -  Retrieves randomly all of the Artworks
-router.get("/:username", async (req, res, next) => {
+router.get("/profile", isAuthenticated, async (req, res, next) => {
+  // use username to find matching user in DB
+  const user = await User.findOne({ username: req.payload.username });
+  console.log(user._id.toString());
+  // get Id form that user ans pass this Id
+  Artwork.find({ owner: { $all: [user._id.toString()] } })
+    // .populate("chat")
+    .then((allArtworks) => {
+      console.log(allArtworks);
+      res.json(allArtworks);
+    })
+
+    .catch((err) => res.json(err));
+});
+
+//  GET /gallery/:username -  Retrieves randomly all of the Artworks
+router.get("/profile/:username", isAuthenticated, async (req, res, next) => {
   // use username to find matching user in DB
   const user = await User.findOne({ username: req.params.username });
   console.log(user._id.toString());

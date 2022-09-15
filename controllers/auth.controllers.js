@@ -118,10 +118,26 @@ exports.renderLoginView = (req, res, next) => {
 
       if (passwordCorrect) {
         // Deconstruct the user object to omit the password
-        const { _id, email, username } = foundUser;
+        const {
+          _id,
+          email,
+          username,
+          artist,
+          artwork,
+          discipline,
+          autodefinition,
+        } = foundUser;
 
         // Create an object that will be set as the token payload
-        const payload = { _id, email, username };
+        const payload = {
+          _id,
+          email,
+          username,
+          artist,
+          artwork,
+          discipline,
+          autodefinition,
+        };
         // {_id:"hdbsbdkbjskjbds", email: "lorena@test.com", name: "lorena"}
         // --> Convert using HS256, jwt.sign(payload)
         // eyJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20ifQ.
@@ -146,4 +162,5 @@ exports.verifycation = (req, res) => {
   console.log(`req.payload`, req.payload);
   console.log("hello??");
   res.status(200).json(req.payload);
+  console.log(req.payload);
 };
