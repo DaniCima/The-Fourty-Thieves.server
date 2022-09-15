@@ -30,8 +30,8 @@ exports.renderFirstArtworks = (req, res, next) => {
         artwork,
         discipline,
         autodefinition,
-        collaborators,
-        link,
+        // collaborators,
+        // link,
       }) => {
         res.status(200).json({
           _id: _id,
@@ -42,8 +42,8 @@ exports.renderFirstArtworks = (req, res, next) => {
           artwork,
           discipline,
           autodefinition,
-          collaborators,
-          link,
+          // collaborators,
+          // link,
         });
       }
     )

@@ -69,8 +69,11 @@ router.get("/artwork/:artworkId", (req, res, next) => {
   // Each Artwork document has `tasks` array holding `_id`s of Task documents
   // We use .populate() method to get swap the `_id`s for the actual Task documents
   Artwork.findById(artworkId)
-    // .populate("chat")
-    .then((Artwork) => res.status(200).json(Artwork))
+    .populate("owner")
+    .then((Artwork) => {
+      console.log(Artwork);
+      res.status(200).json(Artwork);
+    })
     .catch((error) => res.json(error));
 });
 
@@ -89,7 +92,7 @@ router.put("/artwork/:artworkId", (req, res, next) => {
 });
 
 // DELETE  /api/gallery/:artworkId  -  Deletes a specific Artwork by id
-router.delete("/:artworkId", (req, res, next) => {
+router.delete("/artwork/:artworkId", (req, res, next) => {
   const { artworkId } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(artworkId)) {

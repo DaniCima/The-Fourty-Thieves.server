@@ -25,8 +25,8 @@ const userSchema = new Schema({
   artwork: [{ type: Schema.Types.ObjectId, ref: "Artwork" }],
   discipline: { type: String },
   autodefinition: { type: String },
-  collaborators: [{ type: Schema.Types.ObjectId, ref: "User" }],
-  link: { type: String },
+  // collaborators: [{ type: Schema.Types.ObjectId, ref: "User" }],
+  // link: { type: String },
 });
 
 module.exports = model("User", userSchema);

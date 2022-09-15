@@ -124,7 +124,7 @@ Server: https://github.com/DaniCima/The-Fourty-Thieves.server
 
 Deploy
 
-Link
+https://fourty-thieves.netlify.app/
 
 Slides
 

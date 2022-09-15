@@ -14,8 +14,8 @@ exports.renderSignUpView = (req, res, next) => {
     artwork,
     discipline,
     autodefinition,
-    collaborators,
-    link,
+    // collaborators,
+    // link,
   } = req.body;
   if (email === "" || password === "" || username === "") {
     res.status(400).json({ message: "Provide required fields" });
@@ -53,8 +53,8 @@ exports.renderSignUpView = (req, res, next) => {
           artwork,
           discipline,
           autodefinition,
-          collaborators,
-          link,
+          // collaborators,
+          // link,
         }).then((createdUser) => {
           // Deconstruct the newly created user object to omit the password
           // We should never expose passwords publicly
@@ -67,8 +67,8 @@ exports.renderSignUpView = (req, res, next) => {
             artwork,
             discipline,
             autodefinition,
-            collaborators,
-            link,
+            // collaborators,
+            // link,
           } = createdUser;
 
           // Create a new object that doesn't expose the password
@@ -81,8 +81,8 @@ exports.renderSignUpView = (req, res, next) => {
             artwork,
             discipline,
             autodefinition,
-            collaborators,
-            link,
+            // collaborators,
+            // link,
           };
 
           // Send a json response containing the user object
@@ -98,7 +98,6 @@ exports.renderSignUpView = (req, res, next) => {
 
 exports.renderLoginView = (req, res, next) => {
   const { email, password } = req.body;
-
   // Check if email or password are provided as empty string
   if (email === "" || password === "") {
     res.status(400).json({ message: "Provide email and password." });
@@ -145,5 +144,6 @@ exports.renderLoginView = (req, res, next) => {
 
 exports.verifycation = (req, res) => {
   console.log(`req.payload`, req.payload);
+  console.log("hello??");
   res.status(200).json(req.payload);
 };
